@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div>
+    <h1>Загрузить кадастровые номера из файла</h1>
+</div>
+
+<div>
+    {% if message %}
+        <h2>{{ message }}</h2>
+        <a href="{% url 'main' %}">На главную</a>
+    {% else %}
+        <form method="post" action="." enctype="multipart/form-data">
+            {{ form.as_p }}
+        <ul>
+            <li>Файл должен быть формата ТХТ</li>
+            <li>Должен содержать одну колонку</li>
+            <li>В каждой строке один кадастровый номер</li>
+        </ul>
+            <a href="{% url 'main' %}"><input type="button" value="Отмена"></a>
+            <input type="submit" value="Закачать">
+        </form>
+    {% endif %}
+</div>
+
+{% endblock content %}

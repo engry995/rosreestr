@@ -1,3 +1,13 @@
+# media
+#media/
+
+# Migrations
+#**/migrations/**
+#!**/migrations
+#!**/migrations/__init__.py
+
+# Created by .ignore support plugin (hsz.mobi)
+### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -52,7 +62,7 @@ coverage.xml
 .pytest_cache/
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:
@@ -127,3 +137,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Jetbrains Intellij IDEA
+.idea/
+
+.DS_Store
+
+# VS Code
+.vscode/
+.devcontainer/

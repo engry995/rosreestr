@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div>
+    <h1>Сообщение об выполненной операции</h1>
+</div>
+<div>
+    {% if message %}
+        <h3>{{ message|linebreaksbr }}</h3>
+    {% else %}
+        <h3>Информация не получена</h3>
+    {% endif %}
+    <a href="{% url 'main' %}">На главную</a>
+</div>
+
+{% endblock content %}

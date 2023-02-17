@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <title>{% block title %}Кадастровые номера{% endblock title%}</title>
+</head>
+
+<body>
+
+  <div class="container">
+    {% block header %}
+      <div class="header">
+        <span><a href="{% url 'main' %}">Кадастровые номера</a></span>
+        <span class="header_menu"></span>
+      </div>
+    {% endblock header %}
+    
+    {% block menu %}
+      <div class="menu">
+        <a href="{% url 'admin:number_baseobject_changelist' %}">Админ-панель управления базой кадастровых паспортов</a>
+      </div>
+    {% endblock menu %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block footer %}
+      <div class="footer">
+        <hr>
+        <p>Проект для обработки кадастровых номеров</p>
+      </div>
+    {% endblock footer%}
+
+  </div>
+</body>
+
+</html>
