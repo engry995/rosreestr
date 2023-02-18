@@ -2,10 +2,23 @@
 
 {% block content %}
 <br>
-<div class="command">
-    <a href="{% url 'load_file' %}">Загрузить кадастровые номера из файла</a>
-</div>
 
+    <ul>
+        <li>
+            <div class="command">
+                <a href="{% url 'load_file' %}">Загрузить кадастровые номера из файла</a>
+            </div>
+        </li>
+        <li>
+            <div class="command">
+                <a href="{% url 'email_handler' %}">Загрузить и обработать почту</a>
+            </div>
+        </li>
+
+
+
+
+    </ul>
 
 {% endblock content %}
 

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div>
+    <h1>Обработать почту</h1>
+</div>
+<ul>
+    <li>Скачиваются письма за определенную дату</li>
+    <li>Среди них ищутся письма от Росреестра содержащие ссылку на кадастровый паспорт</li>
+    <li>Закачивается паспорт</li>
+</ul>
+
+
+<div>
+    {% if message %}
+        <h2>{{ message }}</h2>
+        <a href="{% url 'main' %}">На главную</a>
+    {% else %}
+        <form method="post" action="." enctype="multipart/form-data">
+            {{ form.as_p }}
+
+            <a href="{% url 'main' %}"><input type="button" value="Отмена"></a>
+            <input type="submit" value="Обработать почту">
+        </form>
+    {% endif %}
+</div>
+
+{% endblock content %}
