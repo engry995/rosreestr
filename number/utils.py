@@ -1,4 +1,4 @@
-import imaplib
+import imaplib, email
 
 
 class EmailHandler:
@@ -12,13 +12,16 @@ class EmailHandler:
         self.subj = 'Уведомление о завершении обработки запроса'
         self.client = None
         self.__uids = None
-        self.links = None
+        self.links = []
 
     def get_links(self):
         self.connect()
         self.__get_mail_uid()
-        self.__download_email()
-        self.__parse_email()
+        for uid in self.__uids[:10]:
+            mail = self.__download_email(uid)
+            link = self.__parse_email(mail)
+            if link:
+                self.links.append(link)
         return self.links
 
     def connect(self):
@@ -40,24 +43,28 @@ class EmailHandler:
         if not subj:
             subj = self.subj
         _, emails = self.client.uid('search', 'CHARSET', 'utf-8', f'SUBJECT "{subj}"'.encode('utf-8'))
-        self.uids = emails[0].decode('utf-8').split()
+        self.__uids = emails[0].decode('utf-8').split()
+        print(f'Получено  {len(self.__uids)} uid')
 
-    def __download_email(self):
-        return []
+    def __download_email(self, uid):
+        res, mess = self.client.uid('fetch', uid, '(RFC822)')
+        print(res, 'download', uid)
+        if res == 'OK':
+            mess = email.message_from_bytes(mess[0][1])
+            return mess
 
-    def __parse_email(self):
-        return []
-
-
-
-
-
-
-
+    def __parse_email(self, mess):
+        text = ''
+        for part in mess.walk():
+            if part.get_content_type() == 'text/html':
+                text = part.get_payload(decode=True).decode()
+        start = text.find('https://lk.rosreestr.ru')
+        end = text.find('">', start)
+        link = text[start:end]
+        return link
 
 
 
 if __name__ == '__main__':
-    mail = EmailHandler()
-    mail.connect()
-    print(mail.get_mail())
+    reestr = EmailHandler()
+    print(reestr.get_links())
